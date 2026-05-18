@@ -9,22 +9,31 @@ Ship the smallest credible demo for Lead.AI Business Audit.
 Implemented:
 
 - React/Vite client-side demo.
-- Business intake form with safe sample data.
+- Full lead capture form with safe sample data.
 - Deterministic scoring rubric.
 - Recommended automation package.
 - Strengths and workflow gap analysis.
 - 30-day roadmap output.
 - Print/save report action.
 - Transparent score bands and scoring explanation.
+- Firestore-ready report storage.
+- Local demo storage fallback.
+- Unique report IDs.
+- Report route: `/report/:reportId`.
+- Admin dashboard route: `/admin/audits`.
+- Admin status updates.
 - Desktop and mobile screenshots.
 
 ## MVP Features
 
 - Business intake form
+- Lead capture fields
 - Automation readiness score
 - Lead response score
 - Workflow gap analysis
 - Recommended automation package
+- Report storage and retrieval
+- Admin follow-up workflow
 
 ## Implementation Steps
 
@@ -55,10 +64,13 @@ Implemented:
 
 Report Storage + Lead Capture:
 
-- Firebase Firestore report persistence.
-- Lead contact fields: owner name, email, phone, website.
-- Unique report ID.
-- Admin submitted-audits view.
-- Email notification placeholder.
-- PDF export path.
-- Request implementation CTA submission.
+- Firebase Firestore report persistence. Implemented.
+- Local browser storage fallback. Implemented.
+- Lead contact fields: owner name, email, phone, website, business type, major problem, automation needs, monthly budget. Implemented.
+- Unique report ID. Implemented.
+- Admin submitted-audits view. Implemented.
+- Status pipeline. Implemented.
+- PDF export path through print/save. Implemented.
+- Request proposal CTA. Implemented.
+- Email notification placeholder. Planned for v0.4.
+- PayPal Checkout. Deferred to v0.3.

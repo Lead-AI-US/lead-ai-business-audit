@@ -2,9 +2,9 @@
 
 ## Status
 
-MVP
+MVP / v0.2 intake system
 
-The current MVP is a static Vite React application. It can be deployed to static hosting after running a production build, but no production backend is included yet.
+The current MVP is a static Vite React application. Version 0.2 can save audit reports to Firestore from the browser when Firebase web configuration is provided. Without Firebase configuration, the app uses local browser storage for demos.
 
 ## Local Build
 
@@ -129,11 +129,37 @@ firebase deploy
 ## Future Deployment Requirements
 
 - Static hosting configuration for the Vite build.
-- Backend hosting for saved reports, lead capture, and AI workflows.
+- Vercel environment variables for Firestore report storage.
+- Authentication and Firestore rules before production customer data collection.
 - Backend endpoints for PayPal create-order and capture-order flows before accepting public checkout payments.
 - Required environment variables from `.env.example` when integrations are added.
 - Database migration or rules deployment process, if applicable.
 - Monitoring, rollback, and incident response notes.
+
+## Firestore Environment Variables
+
+Set these in Vercel Project Settings -> Environment Variables when report storage is ready:
+
+```env
+VITE_FIREBASE_API_KEY=your_firebase_web_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-firebase-project-id
+VITE_FIREBASE_APP_ID=your_firebase_app_id
+```
+
+Firestore collection:
+
+```text
+auditReports
+```
+
+Admin route:
+
+```text
+/admin/audits
+```
+
+Add authentication and restrictive Firestore rules before using the admin route with real customer data.
 
 ## Environment Strategy
 
@@ -145,8 +171,8 @@ firebase deploy
 
 - [x] No secrets or `.env` files committed.
 - [x] Setup commands verified from a clean checkout.
-- [ ] Authentication and authorization reviewed before backend/customer data is added.
-- [x] Current MVP does not log or transmit private data.
+- [ ] Authentication and authorization added for admin/customer data.
+- [x] Current MVP avoids console logging submitted customer data.
 - [x] Responsible AI limitations visible where relevant.
 - [x] README and docs updated with the current deployment flow.
 - [ ] Vercel GitHub auto-deploy connection completed in dashboard.

@@ -2,9 +2,9 @@
 
 ## Status
 
-MVP
+MVP / v0.2 client-side storage
 
-This API spec is a planning document. The current MVP runs client-side without a backend API. Endpoints should be treated as proposed until server code and tests are added.
+This API spec is a planning document. Version 0.2 uses Firestore from the browser when Firebase web configuration is provided, plus local browser storage as a demo fallback. Backend endpoints should be treated as proposed until server code and tests are added.
 
 ## API Principles
 
@@ -14,7 +14,42 @@ This API spec is a planning document. The current MVP runs client-side without a
 - Avoid logging personally identifiable information.
 - Include explanation factors for AI-generated scores, recommendations, or risk outputs.
 
-## Proposed Endpoint
+## Implemented Client Data Contract
+
+Firestore collection:
+
+```text
+auditReports
+```
+
+Document ID:
+
+```text
+LA-YYYYMMDD-RANDOM
+```
+
+Stored report fields:
+
+- `reportId`
+- `createdAt`
+- `status`
+- `owner`
+- `business`
+- `auditInput`
+- `auditResult`
+- `source`
+
+Admin status values:
+
+- `new`
+- `reviewed`
+- `contacted`
+- `proposal_sent`
+- `converted`
+- `not_ready`
+- `closed`
+
+## Proposed Backend Endpoint
 
 `POST /v1/audits`
 
@@ -45,4 +80,11 @@ This API spec is a planning document. The current MVP runs client-side without a
 
 ## Current Local Demo
 
-The current React demo calculates audit results in the browser and does not send data to any server.
+The current React demo calculates audit results in the browser. If Firestore is configured, it writes report documents to `auditReports`. If Firestore is not configured, it saves reports to local browser storage.
+
+## Planned PayPal Endpoints
+
+Do not enable live checkout until these backend endpoints exist:
+
+- `POST /api/paypal/create-order`
+- `POST /api/paypal/capture-order`

@@ -26,12 +26,15 @@ Small businesses do not know what to automate first or how much AI automation th
 
 ## Core Features
 
-- Business intake form
+- Full business and owner intake form
 - Automation readiness score
 - Lead response score
 - Workflow gap analysis
 - Recommended automation package
 - 30-day roadmap
+- Saved report route
+- Admin audit dashboard
+- Lead status pipeline
 - PDF/report-ready output
 - Lead capture CTA
 
@@ -48,6 +51,11 @@ Current MVP additions:
 - Recommended package.
 - Top 3 automation priorities.
 - Implementation notes.
+- Firestore-ready `auditReports` collection.
+- Local browser storage fallback.
+- Report view at `/report/:reportId`.
+- Admin view at `/admin/audits`.
+- Status pipeline for lead follow-up.
 - Desktop and mobile screenshots.
 
 ## Out Of Scope For MVP
@@ -56,7 +64,8 @@ Current MVP additions:
 - Real customer data.
 - Complex multi-tenant enterprise controls.
 - Unsupported accuracy claims.
-- Paid billing flows unless explicitly required for the first demo.
+- Paid billing flows until PayPal backend endpoints are implemented.
+- Public admin access for production customer data.
 
 ## Success Metrics
 
