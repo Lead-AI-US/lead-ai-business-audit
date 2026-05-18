@@ -3,6 +3,7 @@
 !.env.example
 node_modules/
 .next/
+.vercel/
 dist/
 build/
 coverage/
@@ -13,3 +14,4 @@ __pycache__/
 venv/
 .DS_Store
 *.log
+.vercel
