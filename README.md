@@ -8,6 +8,16 @@ MVP demo
 
 This repository now includes a runnable client-side React MVP. It is suitable for public demo, product validation, and continued implementation. It should not be described as production-ready until backend persistence, authentication, tests, deployment hardening, and security controls are added.
 
+## Live Demo
+
+Public deployment: pending Vercel deployment.
+
+Recommended production URL:
+
+```text
+https://lead-ai-business-audit.vercel.app
+```
+
 ## Problem Solved
 
 Small businesses do not know what to automate first or how much AI automation they need.
@@ -26,10 +36,12 @@ Small businesses do not know what to automate first or how much AI automation th
 - Automation readiness score
 - Lead response score
 - Workflow gap analysis
+- Transparent score bands and scoring explanation
 - Recommended automation package
+- Top 3 automation priorities
 - 30-day roadmap
 - Print/save report output
-- Lead capture CTA
+- Implementation help CTA
 
 ## Tech Stack
 
@@ -91,22 +103,66 @@ The current MVP demo runs without required environment variables. Future backend
 
 See [User Flow](docs/USER_FLOW.md) for more detail.
 
-## Screenshots And Demo
+## Scoring Model
 
-The current demo runs locally with `npm run dev`.
+The current MVP uses deterministic business rules. It does not claim to generate scores with AI.
 
-Suggested public assets:
+Score bands:
 
-- Product dashboard screenshot.
-- Primary workflow screenshot.
-- Short demo video or GIF.
-- Deployment or live demo link, if available.
+- `0-39`: High Risk / Low Automation Readiness
+- `40-59`: Needs Improvement
+- `60-79`: Good Opportunity
+- `80-100`: Strong Automation Fit
+
+The model considers lead volume, response speed, support coverage, booking process, lead tracking maturity, current tools, and repeated customer question volume. Scores are a planning aid for automation discovery, not a final operational decision.
+
+## Demo Screenshots
+
+### Desktop View
+
+![Lead.AI Business Audit Desktop](docs/screenshots/business-audit-desktop.png)
+
+### Mobile View
+
+![Lead.AI Business Audit Mobile](docs/screenshots/business-audit-mobile.png)
+
+## Deployment
+
+Vercel:
+
+```bash
+npm install
+npm run build
+vercel
+vercel --prod
+```
+
+Firebase Hosting, optional:
+
+```bash
+npm install
+npm run build
+firebase init hosting
+firebase deploy
+```
+
+The current MVP does not require environment variables.
 
 ## Roadmap
 
 See [Roadmap](docs/ROADMAP.md) and [MVP Plan](docs/MVP_PLAN.md).
 
 Immediate next step: add backend persistence, report export storage, and a shareable client-facing demo link.
+
+## Version 0.2 Roadmap: Report Storage + Lead Capture
+
+- Save audit reports to Firebase Firestore.
+- Collect business owner name, email, phone, and website.
+- Generate unique report IDs.
+- Add admin view for submitted audits.
+- Add email notification placeholder.
+- Add export to PDF.
+- Add "Request Lead.AI Implementation" submission flow.
 
 ## Security Notes
 
@@ -140,6 +196,8 @@ See [Security](docs/SECURITY.md).
 Founded by Arun Kumar Gharami.  
 Website: https://www.lead-ai.us  
 GitHub: https://github.com/Arungharami
+
+Contact: arun_w@proton.me
 
 ## License
 

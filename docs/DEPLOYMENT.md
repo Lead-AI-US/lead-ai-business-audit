@@ -16,6 +16,46 @@ npm run build
 
 The build output is generated in `dist/`.
 
+## Vercel Deployment
+
+Recommended project name:
+
+```text
+lead-ai-business-audit
+```
+
+Deploy:
+
+```bash
+npm install -g vercel
+vercel login
+vercel
+vercel --prod
+```
+
+Recommended production URL:
+
+```text
+https://lead-ai-business-audit.vercel.app
+```
+
+After deployment, update:
+
+- README live demo link.
+- GitHub repository About website URL.
+- Demo screenshot/video issue.
+
+## Firebase Hosting Deployment
+
+Optional static hosting path:
+
+```bash
+npm install
+npm run build
+firebase init hosting
+firebase deploy
+```
+
 ## Future Deployment Requirements
 
 - Static hosting configuration for the Vite build.
@@ -32,9 +72,9 @@ The build output is generated in `dist/`.
 
 ## Pre-Deployment Checklist
 
-- [ ] No secrets or `.env` files committed.
-- [ ] Setup commands verified from a clean checkout.
-- [ ] Authentication and authorization reviewed.
-- [ ] Logs checked for private data exposure.
-- [ ] Responsible AI limitations visible where relevant.
-- [ ] README and docs updated with the actual deployment flow.
+- [x] No secrets or `.env` files committed.
+- [x] Setup commands verified from a clean checkout.
+- [ ] Authentication and authorization reviewed before backend/customer data is added.
+- [x] Current MVP does not log or transmit private data.
+- [x] Responsible AI limitations visible where relevant.
+- [x] README and docs updated with the current deployment flow.

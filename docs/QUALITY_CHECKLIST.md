@@ -38,6 +38,13 @@
 
 ## Demo Quality
 
-- [ ] Demo uses safe sample data.
-- [ ] Screenshot or video placeholder is replaced when a demo exists.
-- [ ] Primary workflow can be explained to a client or reviewer.
+- [x] Demo uses safe sample data.
+- [x] Screenshot placeholder is replaced with desktop and mobile screenshots.
+- [x] Primary workflow can be explained to a client or reviewer.
+
+## Deployment Readiness
+
+- [x] Vercel deployment instructions documented.
+- [x] Firebase Hosting optional deployment instructions documented.
+- [ ] Public demo URL added after deployment.
+- [ ] GitHub About website URL updated after deployment.

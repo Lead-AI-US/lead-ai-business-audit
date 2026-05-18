@@ -10,6 +10,7 @@ Small business owners
 2. The system scores automation readiness, lead response, and workflow gaps.
 3. The user receives a prioritized 30-day automation roadmap.
 4. The report presents a clear next step or consultation CTA.
+5. The user can print/save the report or request Lead.AI implementation help.
 
 ## Happy Path Outcome
 
@@ -27,3 +28,4 @@ The user receives a clear business result from Lead.AI Business Audit without ne
 - Use safe sample data.
 - Show the main workflow end to end.
 - Include one screenshot or short video after implementation.
+- Keep the scoring model described as deterministic unless an AI scoring backend is actually added.

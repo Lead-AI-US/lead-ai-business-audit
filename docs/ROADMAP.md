@@ -15,8 +15,18 @@ MVP
 
 - Implement the core workflow: Build the intake form, scoring rubric, and report-ready audit output first. Completed.
 - Add realistic sample data and public-safe examples. Completed.
-- Add screenshots or a short demo video.
+- Add screenshots or a short demo video. Screenshots completed.
 - Validate the workflow with at least one business scenario.
+
+## Version 0.2: Report Storage + Lead Capture
+
+- Save audit reports to Firebase Firestore.
+- Collect business owner name, email, phone, and website.
+- Generate unique report IDs.
+- Add admin view for submitted audits.
+- Add email notification placeholder.
+- Add export to PDF.
+- Add "Request Lead.AI Implementation" button and submission flow.
 
 ## Phase 3: Trust And Integrations
 

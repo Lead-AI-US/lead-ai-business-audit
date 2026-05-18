@@ -15,6 +15,8 @@ Implemented:
 - Strengths and workflow gap analysis.
 - 30-day roadmap output.
 - Print/save report action.
+- Transparent score bands and scoring explanation.
+- Desktop and mobile screenshots.
 
 ## MVP Features
 
@@ -48,3 +50,15 @@ Implemented:
 3. Add screenshot and demo video assets.
 4. Add form validation tests and scoring logic tests.
 5. Add an optional PDF generation path.
+
+## Version 0.2 Scope
+
+Report Storage + Lead Capture:
+
+- Firebase Firestore report persistence.
+- Lead contact fields: owner name, email, phone, website.
+- Unique report ID.
+- Admin submitted-audits view.
+- Email notification placeholder.
+- PDF export path.
+- Request implementation CTA submission.

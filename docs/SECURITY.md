@@ -20,6 +20,8 @@ Security controls must be reviewed again when implementation code, integrations,
 - Avoid collecting unnecessary sensitive business data.
 - Review generated reports before using them for high-impact decisions.
 - Document data retention expectations.
+- The current MVP runs client-side and does not persist submitted intake data.
+- Version 0.2 must add clear consent, retention, and access rules before storing lead contact details.
 
 ## Responsible AI Controls
 

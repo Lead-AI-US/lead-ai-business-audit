@@ -41,6 +41,15 @@ The MVP should prove one practical workflow before expanding into a full product
 
 First valuable demo: Build the intake form, scoring rubric, and report-ready audit output first.
 
+Current MVP additions:
+
+- Transparent score bands.
+- Report generation date.
+- Recommended package.
+- Top 3 automation priorities.
+- Implementation notes.
+- Desktop and mobile screenshots.
+
 ## Out Of Scope For MVP
 
 - Production claims.
@@ -55,3 +64,7 @@ First valuable demo: Build the intake form, scoring rubric, and report-ready aud
 - The primary workflow can be demonstrated with safe sample data.
 - Setup and security expectations are documented.
 - AI outputs include limitations, explanations, or review guidance where relevant.
+
+## Client Lead Magnet Goal
+
+The product should help Lead.AI start a client conversation by showing a practical automation opportunity and a clear next step toward implementation help.
