@@ -12,6 +12,12 @@ This repository now includes a runnable client-side React MVP. It is suitable fo
 
 Public deployment: https://lead-ai-business-audit.vercel.app
 
+Deployment notes:
+
+- The Vercel production deployment is live.
+- GitHub repository About URL is set.
+- Automatic Vercel deploys from GitHub require completing the Vercel GitHub App connection for `Lead-AI-US` in the Vercel dashboard.
+
 ## Problem Solved
 
 Small businesses do not know what to automate first or how much AI automation they need.

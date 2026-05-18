@@ -18,6 +18,20 @@ The build output is generated in `dist/`.
 
 ## Vercel Deployment
 
+Current production deployment:
+
+```text
+https://lead-ai-business-audit.vercel.app
+```
+
+Deployment status:
+
+- Vercel production deployment is live.
+- GitHub repository About URL is updated.
+- Vercel project name is `lead-ai-business-audit`.
+- Vercel project is linked locally through `.vercel/project.json`, which is intentionally ignored by git.
+- Automatic GitHub-to-Vercel deploys are pending GitHub App access for the `Lead-AI-US` organization.
+
 Recommended project name:
 
 ```text
@@ -39,17 +53,36 @@ Recommended production URL:
 https://lead-ai-business-audit.vercel.app
 ```
 
-Current production deployment:
+## GitHub Auto-Deploy Connection
 
-```text
-https://lead-ai-business-audit.vercel.app
+The CLI command was attempted:
+
+```bash
+vercel git connect https://github.com/Lead-AI-US/lead-ai-business-audit.git --yes
 ```
+
+Vercel returned an access error while connecting the GitHub repository, even though the GitHub account has admin access to the public repository. This indicates the Vercel GitHub App/OAuth installation likely does not yet have access to the `Lead-AI-US` organization.
+
+Manual fix:
+
+1. Open the Vercel dashboard project for `lead-ai-business-audit`.
+2. Go to project Git settings.
+3. Connect Git repository.
+4. Select GitHub and grant/install access for the `Lead-AI-US` organization.
+5. Choose `Lead-AI-US/lead-ai-business-audit`.
+6. Set production branch to `main`.
+7. Confirm build settings:
+   - Framework preset: Vite
+   - Install command: `npm install`
+   - Build command: `npm run build`
+   - Output directory: `dist`
+8. Trigger one deployment from Git to confirm automatic deploys work.
 
 After deployment, update:
 
 - README live demo link. Completed.
 - GitHub repository About website URL. Completed.
-- Demo screenshot/video issue.
+- Demo screenshot/video issue. Completed with committed desktop and mobile screenshots.
 
 ## Firebase Hosting Deployment
 
@@ -84,3 +117,4 @@ firebase deploy
 - [x] Current MVP does not log or transmit private data.
 - [x] Responsible AI limitations visible where relevant.
 - [x] README and docs updated with the current deployment flow.
+- [ ] Vercel GitHub auto-deploy connection completed in dashboard.

@@ -48,3 +48,5 @@
 - [x] Firebase Hosting optional deployment instructions documented.
 - [x] Public demo URL added after deployment.
 - [x] GitHub About website URL updated after deployment.
+- [x] Production deployment verified with HTTP 200.
+- [ ] Vercel GitHub auto-deploy connection completed in dashboard.
