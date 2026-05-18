@@ -29,24 +29,38 @@ button {
   cursor: pointer;
 }
 
+a {
+  color: inherit;
+}
+
 .app-shell {
   min-height: 100vh;
   padding: 24px;
 }
 
+.hero {
+  background: #17231f;
+  border-radius: 8px;
+  color: #f8f6f0;
+  margin: 0 auto 20px;
+  max-width: 1440px;
+  overflow: hidden;
+  padding: 22px;
+}
+
 .topbar {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   gap: 24px;
   justify-content: space-between;
-  margin: 0 auto 20px;
-  max-width: 1440px;
+  margin-bottom: 34px;
 }
 
 .brand-mark,
 .section-heading,
 .score-card__top,
 .topbar__actions,
+.hero__actions,
 .primary-button,
 .icon-button {
   align-items: center;
@@ -54,11 +68,10 @@ button {
 }
 
 .brand-mark {
-  color: #0e6b55;
+  color: #91dcc8;
   font-size: 0.9rem;
   font-weight: 700;
   gap: 8px;
-  margin-bottom: 8px;
 }
 
 h1,
@@ -70,10 +83,11 @@ p {
 }
 
 h1 {
-  color: #17231f;
-  font-size: 1.85rem;
+  color: #f8f6f0;
+  font-size: 3rem;
   font-weight: 760;
-  line-height: 1.15;
+  line-height: 1.05;
+  max-width: 760px;
 }
 
 .topbar__actions {
@@ -83,10 +97,10 @@ h1 {
 }
 
 .status-pill {
-  background: #e7f3e4;
-  border: 1px solid #bddfc0;
+  background: rgba(145, 220, 200, 0.12);
+  border: 1px solid rgba(145, 220, 200, 0.34);
   border-radius: 999px;
-  color: #1f6839;
+  color: #baf1e1;
   font-size: 0.82rem;
   font-weight: 700;
   padding: 9px 12px;
@@ -96,6 +110,7 @@ h1 {
 .icon-button,
 .primary-button {
   border: 0;
+  text-decoration: none;
   font-weight: 750;
   gap: 8px;
 }
@@ -106,6 +121,57 @@ h1 {
   color: #fff;
   min-height: 40px;
   padding: 0 14px;
+}
+
+.icon-button--light {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero__content {
+  align-items: end;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(0, 1fr) 280px;
+}
+
+.hero__content > div > p:not(.eyebrow) {
+  color: #d7e3de;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-top: 16px;
+  max-width: 760px;
+}
+
+.hero__actions {
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.hero-card {
+  background: #f8f6f0;
+  border-radius: 8px;
+  color: #17231f;
+  display: grid;
+  gap: 8px;
+  padding: 22px;
+}
+
+.hero-card span {
+  color: #0e6b55;
+  font-size: 2.8rem;
+  font-weight: 840;
+  line-height: 1;
+}
+
+.hero-card strong {
+  font-size: 1rem;
+}
+
+.hero-card p {
+  color: #66736d;
+  line-height: 1.45;
 }
 
 .workspace {
@@ -120,6 +186,10 @@ h1 {
 .report-panel,
 .score-card,
 .recommendation,
+.score-explainer,
+.priority-panel,
+.implementation-notes,
+.final-cta,
 .insight-grid > section,
 .timeline article {
   background: rgba(255, 255, 255, 0.92);
@@ -262,6 +332,32 @@ textarea:focus {
   text-transform: uppercase;
 }
 
+.report-meta {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 18px 0 0;
+}
+
+.report-meta div {
+  border-left: 1px solid rgba(145, 220, 200, 0.28);
+  padding-left: 12px;
+}
+
+.report-meta dt {
+  color: #91dcc8;
+  font-size: 0.72rem;
+  font-weight: 820;
+  text-transform: uppercase;
+}
+
+.report-meta dd {
+  color: #f8f6f0;
+  font-size: 0.9rem;
+  font-weight: 720;
+  margin: 4px 0 0;
+}
+
 .report-hero h2 {
   font-size: 1.75rem;
   line-height: 1.18;
@@ -299,6 +395,62 @@ textarea:focus {
   text-transform: uppercase;
 }
 
+.overall-score em {
+  color: #0e6b55;
+  font-size: 0.76rem;
+  font-style: normal;
+  font-weight: 820;
+  text-align: center;
+}
+
+.score-explainer,
+.priority-panel,
+.implementation-notes {
+  box-shadow: none;
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+}
+
+.band-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.band-grid span,
+.score-band {
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 820;
+  padding: 7px 9px;
+}
+
+.band-grid span:nth-child(1) {
+  background: #f8e3db;
+  color: #9e3c1d;
+}
+
+.band-grid span:nth-child(2) {
+  background: #f3ead4;
+  color: #7a5b16;
+}
+
+.band-grid span:nth-child(3) {
+  background: #e7f3e4;
+  color: #1f6839;
+}
+
+.band-grid span:nth-child(4) {
+  background: #ddf5ee;
+  color: #0e6b55;
+}
+
+.compact-list {
+  columns: 2;
+  margin-top: 0;
+}
+
 .score-grid {
   display: grid;
   gap: 12px;
@@ -324,6 +476,26 @@ textarea:focus {
   font-size: 2.3rem;
   font-weight: 820;
   line-height: 1;
+}
+
+.score-band {
+  justify-self: start;
+}
+
+.score-band--strong,
+.score-band--good {
+  background: #e7f3e4;
+  color: #1f6839;
+}
+
+.score-band--needs-work {
+  background: #f3ead4;
+  color: #7a5b16;
+}
+
+.score-band--risk {
+  background: #f8e3db;
+  color: #9e3c1d;
 }
 
 .meter {
@@ -363,6 +535,13 @@ textarea:focus {
   white-space: nowrap;
 }
 
+.priority-panel ol {
+  color: #4b5953;
+  line-height: 1.5;
+  margin: 0;
+  padding-left: 22px;
+}
+
 .insight-grid {
   display: grid;
   gap: 12px;
@@ -399,6 +578,26 @@ li + li {
   gap: 14px;
 }
 
+.final-cta {
+  align-items: center;
+  box-shadow: none;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.final-cta h3 {
+  font-size: 1.12rem;
+  font-weight: 820;
+}
+
+.final-cta p {
+  color: #66736d;
+  line-height: 1.5;
+  margin-top: 5px;
+}
+
 .timeline {
   display: grid;
   gap: 12px;
@@ -420,7 +619,9 @@ li + li {
 @media (max-width: 1180px) {
   .workspace,
   .score-grid,
-  .timeline {
+  .timeline,
+  .band-grid,
+  .hero__content {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -442,14 +643,19 @@ li + li {
     padding: 14px;
   }
 
+  .hero {
+    padding: 16px;
+  }
+
   .topbar,
-  .recommendation {
+  .recommendation,
+  .final-cta {
     align-items: stretch;
     flex-direction: column;
   }
 
   h1 {
-    font-size: 1.45rem;
+    font-size: 2.05rem;
   }
 
   .workspace,
@@ -457,8 +663,15 @@ li + li {
   .field-grid,
   .insight-grid,
   .timeline,
-  .report-hero {
+  .report-hero,
+  .report-meta,
+  .band-grid,
+  .hero__content {
     grid-template-columns: 1fr;
+  }
+
+  .compact-list {
+    columns: 1;
   }
 
   .overall-score {
@@ -478,8 +691,14 @@ li + li {
 
 @media print {
   .intake-panel,
-  .topbar__actions {
+  .hero__actions,
+  .topbar__actions,
+  .final-cta .primary-button {
     display: none;
+  }
+
+  .hero {
+    margin: 0 0 12px;
   }
 
   .app-shell {
@@ -495,6 +714,10 @@ li + li {
   .report-hero,
   .score-card,
   .recommendation,
+  .score-explainer,
+  .priority-panel,
+  .implementation-notes,
+  .final-cta,
   .insight-grid > section,
   .timeline article {
     box-shadow: none;
