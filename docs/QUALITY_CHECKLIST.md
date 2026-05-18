@@ -6,13 +6,14 @@
 - [ ] Status is honest: MVP.
 - [ ] README includes problem, target users, features, setup, usage, security, responsible AI, and roadmap.
 - [ ] Architecture, roadmap, security, deployment, product spec, user flow, and MVP docs are current.
+- [x] v0.2 Firestore/report/admin workflow is documented.
 - [ ] Links are valid.
 
 ## Engineering Quality
 
 - [ ] Code is modular and simple.
-- [ ] Inputs are validated.
-- [ ] Errors are handled clearly.
+- [x] Inputs are validated.
+- [x] Errors are handled clearly.
 - [ ] Tests cover core workflow logic.
 - [x] Setup works from a clean checkout.
 
@@ -25,8 +26,8 @@
 ## Security Quality
 
 - [ ] No secrets, `.env` files, private credentials, customer data, or PII are committed.
-- [ ] `.env.example` contains placeholders only.
-- [ ] Auth and authorization expectations are documented.
+- [x] `.env.example` contains placeholders only.
+- [x] Auth and authorization expectations are documented.
 - [ ] Logs avoid private data.
 
 ## Responsible AI Quality
@@ -41,6 +42,8 @@
 - [x] Demo uses safe sample data.
 - [x] Screenshot placeholder is replaced with desktop and mobile screenshots.
 - [x] Primary workflow can be explained to a client or reviewer.
+- [x] Report route can be generated from a saved submission.
+- [x] Admin status workflow exists for demo and development.
 
 ## Deployment Readiness
 

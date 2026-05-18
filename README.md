@@ -4,9 +4,9 @@ A lead magnet and advisory tool that turns business pain points into an automati
 
 ## Product Status
 
-MVP demo
+MVP demo / v0.2 intake system
 
-This repository now includes a runnable client-side React MVP. It is suitable for public demo, product validation, and continued implementation. It should not be described as production-ready until backend persistence, authentication, tests, deployment hardening, and security controls are added.
+This repository now includes a runnable React MVP with lead capture, deterministic scoring, report URLs, Firestore-ready storage, local demo storage fallback, and a simple admin workflow. It should not be described as production-ready until authentication, Firestore security rules, tests, deployment hardening, and operational controls are added.
 
 ## Live Demo
 
@@ -36,7 +36,7 @@ Small businesses do not know what to automate first or how much AI automation th
 
 ## Key Features
 
-- Business intake form
+- Full lead capture form
 - Automation readiness score
 - Lead response score
 - Workflow gap analysis
@@ -44,8 +44,14 @@ Small businesses do not know what to automate first or how much AI automation th
 - Recommended automation package
 - Top 3 automation priorities
 - 30-day roadmap
+- Firestore-ready report storage
+- Local browser storage fallback for demo mode
+- Unique report IDs
+- Customer report route: `/report/:reportId`
+- Admin audit dashboard: `/admin/audits`
+- Admin status pipeline: `new`, `reviewed`, `contacted`, `proposal_sent`, `converted`, `not_ready`, `closed`
 - Print/save report output
-- Implementation help CTA
+- Request proposal / consultation CTA
 
 ## Tech Stack
 
@@ -53,8 +59,9 @@ Small businesses do not know what to automate first or how much AI automation th
 - TypeScript
 - Vite
 - Lucide React icons
+- Firebase Web SDK
 - Deterministic client-side scoring logic
-- FastAPI or serverless backend planned for future persistence and AI workflows
+- Firestore preferred for v0.2 report storage
 
 ## Architecture Overview
 
@@ -96,14 +103,23 @@ npm run preview
 
 Configuration is documented in [.env.example](.env.example). Use placeholder names only in public files. Never commit real `.env` files, API keys, access tokens, private credentials, customer exports, or private datasets.
 
-The current MVP demo runs without required environment variables. Future backend, report storage, email, and AI provider integrations should use `.env.example` as the source of truth.
+The current MVP can run without required environment variables by using local browser storage. To save reports to Firestore, configure the `VITE_FIREBASE_*` values from [.env.example](.env.example) in local development and Vercel.
+
+Firestore collection:
+
+```text
+auditReports
+```
+
+PayPal remains planned only. Do not enable live checkout until backend create-order and capture-order endpoints exist.
 
 ## Usage Flow
 
-1. Business owner completes the audit intake form.
-2. The system scores automation readiness, lead response, and workflow gaps.
-3. The user receives a prioritized 30-day automation roadmap.
-4. The report presents a clear next step or consultation CTA.
+1. Business owner completes the audit intake form with owner, business, budget, problem, and automation needs.
+2. The system validates core fields and scores automation readiness, lead response, customer intelligence, and workflow risk.
+3. The app saves the report to Firestore when configured or local browser storage in demo mode.
+4. The customer can view the report at `/report/:reportId`.
+5. Lead.AI can review submissions in `/admin/audits` and update the pipeline status.
 
 Business funnel:
 
@@ -125,7 +141,7 @@ Recommended offer ladder:
 - Growth Automation System: `$799-$1,500`
 - Monthly AI Support Plan: `$199-$499/month`
 
-PayPal Checkout, report storage, email delivery, and package payment flow are planned for the next product milestone. See [Business Funnel](docs/BUSINESS_FUNNEL.md).
+PayPal Checkout, email delivery, and package payment flow are planned for a later milestone. See [Business Funnel](docs/BUSINESS_FUNNEL.md).
 
 ## Scoring Model
 
@@ -176,26 +192,27 @@ The current MVP does not require environment variables.
 
 See [Roadmap](docs/ROADMAP.md) and [MVP Plan](docs/MVP_PLAN.md).
 
-Immediate next step: add backend persistence, report export storage, and a shareable client-facing demo link.
+Immediate next step: add authentication, Firestore security rules, and email/PDF delivery.
 
-## Version 0.2 Roadmap: Report Storage + Lead Capture
+## Version 0.2: Report Storage + Lead Capture
 
-- Save audit reports to Firebase Firestore.
-- Collect business owner name, email, phone, and website.
-- Generate unique report IDs.
-- Add admin view for submitted audits.
-- Add email notification placeholder.
-- Add export to PDF.
-- Add "Request Lead.AI Implementation" submission flow.
-- Add PayPal Checkout flow for strategy calls, deposits, and starter packages.
-- Replace the temporary Vercel URL with `https://audit.lead-ai.us` after DNS and Vercel domain setup.
+- Full lead capture fields. Completed.
+- Save reports to Firestore when configured. Completed.
+- Local storage fallback for demo mode. Completed.
+- Generate unique report IDs. Completed.
+- Add report route `/report/:reportId`. Completed.
+- Add admin dashboard `/admin/audits`. Completed.
+- Add status pipeline. Completed.
+- Add print-to-PDF export flow. Completed.
+- Keep PayPal disabled until backend endpoints exist. Completed.
+- Replace the temporary Vercel URL with `https://audit.lead-ai.us` after DNS and Vercel setup. Pending.
 
 ## Security Notes
 
 - Do not commit secrets or private customer data.
 - Validate user input before storage, scoring, AI processing, or external API calls.
 - Avoid logging personally identifiable information.
-- Add authentication and authorization before handling protected business data.
+- Add authentication, authorization, and restrictive Firestore rules before using the admin dashboard with real customer data.
 
 See [Security](docs/SECURITY.md).
 

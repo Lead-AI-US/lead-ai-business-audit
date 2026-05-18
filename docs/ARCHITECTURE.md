@@ -2,7 +2,7 @@
 
 ## Status
 
-MVP
+MVP / v0.2 intake system
 
 This document describes the current MVP architecture and the intended backend expansion path.
 
@@ -14,33 +14,40 @@ Business problem: Small businesses do not know what to automate first or how muc
 
 ## Current MVP Architecture
 
-- **Experience layer:** `src/App.tsx` renders the intake form, live scorecards, recommendation block, strengths/gaps, and 30-day roadmap.
-- **Scoring layer:** deterministic client-side scoring in `calculateAudit` turns safe intake data into readiness, lead response, workflow risk, customer intelligence, and overall scores.
+- **Experience layer:** `src/App.tsx` renders the lead capture form, report route, admin audit dashboard, scorecards, recommendation block, strengths/gaps, and 30-day roadmap.
+- **Scoring layer:** deterministic client-side scoring in `src/auditModel.ts` turns safe intake data into readiness, lead response, workflow risk, customer intelligence, and overall scores.
+- **Storage layer:** `src/auditStorage.ts` saves audit reports to Firestore when `VITE_FIREBASE_*` values are configured. Local browser storage is used as a demo fallback.
 - **Presentation layer:** `src/styles.css` provides the responsive dashboard/report layout and print-friendly report output.
 - **Build layer:** Vite, React, and TypeScript provide the local demo and production build.
 
 ## Implemented Components
 
-- Business intake form
+- Full lead capture form
 - Automation readiness score
 - Lead response score
 - Workflow gap analysis
 - Recommended automation package
 - 30-day roadmap
+- Firestore-ready `auditReports` storage
+- Unique report IDs
+- Customer report route: `/report/:reportId`
+- Admin dashboard route: `/admin/audits`
+- Admin status pipeline
 - Print/save report output
 - Lead capture CTA
 
 ## Planned Backend Components
 
-- API endpoint for audit creation and report retrieval.
-- Database table or collection for saved audits and lead capture records.
+- Authentication for admin-only access.
+- Firestore security rules for customer report and admin dashboard access.
 - Optional AI recommendation layer for richer report language.
 - PDF/report storage and email delivery.
-- Authentication for private client reports.
+- PayPal create-order and capture-order backend endpoints.
 
 ## Data And Integration Notes
 
-- The current MVP does not persist data or call external APIs.
+- The current MVP persists to Firestore only when Firebase web configuration is provided.
+- If Firestore is not configured, reports are saved to local browser storage for demo purposes.
 - Store only the data required for the workflow when persistence is added.
 - Keep provider-specific code behind clear adapters.
 - Document data retention and deletion expectations before production use.

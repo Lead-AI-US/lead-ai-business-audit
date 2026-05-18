@@ -1,5 +1,4 @@
 import {
-  ArrowRight,
   BarChart3,
   Bot,
   CalendarClock,
@@ -8,7 +7,6 @@ import {
   Database,
   Download,
   FileText,
-  Gauge,
   Info,
   LayoutDashboard,
   Loader2,
@@ -338,6 +336,7 @@ function App() {
       return;
     }
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoadingReport(true);
     getAuditReport(route.reportId)
       .then(setReport)
@@ -349,6 +348,7 @@ function App() {
       return;
     }
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setAdminLoading(true);
     listAuditReports()
       .then(setReports)

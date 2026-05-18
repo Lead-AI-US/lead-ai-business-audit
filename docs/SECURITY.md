@@ -2,7 +2,7 @@
 
 ## Status
 
-MVP
+MVP / v0.2 intake system
 
 Security controls must be reviewed again when implementation code, integrations, or deployment configuration are added.
 
@@ -20,8 +20,21 @@ Security controls must be reviewed again when implementation code, integrations,
 - Avoid collecting unnecessary sensitive business data.
 - Review generated reports before using them for high-impact decisions.
 - Document data retention expectations.
-- The current MVP runs client-side and does not persist submitted intake data.
-- Version 0.2 must add clear consent, retention, and access rules before storing lead contact details.
+- Version 0.2 can store submitted lead contact details in Firestore when Firebase configuration is provided.
+- Local browser storage is used only as a demo fallback and should not be treated as production storage.
+- `/admin/audits` is a demo admin workflow. Add authentication and authorization before using it with real customer data.
+- Firestore rules must restrict read/write access before production use.
+
+## Firestore Rules Guidance
+
+Before collecting real customer data, configure Firestore rules so public users can create reports but cannot list all reports. Admin list and status updates should require authenticated admin access.
+
+Minimum production requirements:
+
+- Restrict `auditReports` list access to admins only.
+- Restrict status updates to admins only.
+- Consider using unguessable report access tokens for customer report links.
+- Define retention and deletion expectations for lead data.
 
 ## Responsible AI Controls
 
@@ -35,6 +48,6 @@ Security controls must be reviewed again when implementation code, integrations,
 - [ ] Secret scan completed.
 - [ ] `.env.example` is accurate.
 - [ ] Input validation documented.
-- [ ] Auth and authorization expectations documented.
+- [x] Auth and authorization expectations documented.
 - [ ] Logging reviewed for private data exposure.
 - [ ] Responsible AI limitations documented.

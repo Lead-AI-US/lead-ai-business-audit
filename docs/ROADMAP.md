@@ -2,7 +2,7 @@
 
 ## Status
 
-MVP
+MVP / v0.2 implemented
 
 ## Phase 1: Product Foundation
 
@@ -20,21 +20,23 @@ MVP
 
 ## Version 0.2: Report Storage + Lead Capture
 
-- Save audit reports to Firebase Firestore.
-- Collect business owner name, email, phone, and website.
-- Generate unique report IDs.
-- Add admin view for submitted audits.
-- Add email notification placeholder.
-- Add export to PDF.
-- Add "Request Lead.AI Implementation" button and submission flow.
-- Connect the main `www.lead-ai.us` website CTA to the audit workflow.
-- Add PayPal Checkout planning for strategy calls and package deposits.
-- Prepare `audit.lead-ai.us` as the branded production URL after DNS access is available.
+- Save audit reports to Firebase Firestore. Implemented with local demo fallback.
+- Collect business owner name, email, phone, website, business type, major problem, automation needs, and monthly budget. Completed.
+- Generate unique report IDs. Completed.
+- Add report view at `/report/:reportId`. Completed.
+- Add admin view at `/admin/audits`. Completed.
+- Add status pipeline: `new`, `reviewed`, `contacted`, `proposal_sent`, `converted`, `not_ready`, `closed`. Completed.
+- Add export to PDF through print/save flow. Completed.
+- Add "Request proposal" and consultation CTA. Completed.
+- Connect the main `www.lead-ai.us` website CTA to the audit workflow. Completed.
+- Keep PayPal Checkout planned until backend endpoints exist. Completed.
+- Prepare `audit.lead-ai.us` as the branded production URL after DNS access is available. Pending.
 
 ## Phase 3: Trust And Integrations
 
-- Add authentication or protected access where needed.
-- Add integration placeholders or provider adapters.
+- Add authentication or protected access for `/admin/audits`.
+- Add restrictive Firestore rules before collecting real customer data.
+- Add email notification placeholder and delivery provider.
 - Add PayPal create-order and capture-order backend endpoints before live checkout.
 - Add monitoring, logging, error handling, and abuse controls.
 - Improve responsible AI notes, human review paths, and explainability.
