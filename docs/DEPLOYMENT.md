@@ -16,6 +16,8 @@ npm run build
 
 The build output is generated in `dist/`.
 
+`vercel.json` includes an SPA rewrite to `index.html` so direct links such as `/report/:reportId` and `/admin/audits` work after deployment.
+
 ## Vercel Deployment
 
 Current production deployment:
