@@ -10,13 +10,7 @@ This repository now includes a runnable client-side React MVP. It is suitable fo
 
 ## Live Demo
 
-Public deployment: pending Vercel deployment.
-
-Recommended production URL:
-
-```text
-https://lead-ai-business-audit.vercel.app
-```
+Public deployment: https://lead-ai-business-audit.vercel.app
 
 ## Problem Solved
 

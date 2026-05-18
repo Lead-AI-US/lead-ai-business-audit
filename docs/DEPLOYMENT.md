@@ -39,10 +39,16 @@ Recommended production URL:
 https://lead-ai-business-audit.vercel.app
 ```
 
+Current production deployment:
+
+```text
+https://lead-ai-business-audit.vercel.app
+```
+
 After deployment, update:
 
-- README live demo link.
-- GitHub repository About website URL.
+- README live demo link. Completed.
+- GitHub repository About website URL. Completed after deployment when GitHub CLI auth is available.
 - Demo screenshot/video issue.
 
 ## Firebase Hosting Deployment

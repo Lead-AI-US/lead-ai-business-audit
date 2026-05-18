@@ -46,5 +46,5 @@
 
 - [x] Vercel deployment instructions documented.
 - [x] Firebase Hosting optional deployment instructions documented.
-- [ ] Public demo URL added after deployment.
+- [x] Public demo URL added after deployment.
 - [ ] GitHub About website URL updated after deployment.
