@@ -53,6 +53,37 @@ Recommended production URL:
 https://lead-ai-business-audit.vercel.app
 ```
 
+Preferred branded URL after DNS setup:
+
+```text
+https://audit.lead-ai.us
+```
+
+## Custom Subdomain Setup
+
+The branded audit subdomain should be configured after the Vercel account has access to the `lead-ai.us` domain.
+
+Manual setup:
+
+1. Open the Vercel dashboard project for `lead-ai-business-audit`.
+2. Go to Project Settings -> Domains.
+3. Add:
+   ```text
+   audit.lead-ai.us
+   ```
+4. In the DNS provider for `lead-ai.us`, create a CNAME record:
+   ```text
+   Host: audit
+   Target: cname.vercel-dns.com
+   ```
+5. Wait for DNS propagation and confirm the Vercel domain status is valid.
+6. Update the main website CTA from the temporary Vercel URL to:
+   ```text
+   https://audit.lead-ai.us
+   ```
+
+The current CLI account does not have domain access for `lead-ai.us`, so this step must be completed from the Vercel account or DNS provider that controls the domain.
+
 ## GitHub Auto-Deploy Connection
 
 The CLI command was attempted:
@@ -99,6 +130,7 @@ firebase deploy
 
 - Static hosting configuration for the Vite build.
 - Backend hosting for saved reports, lead capture, and AI workflows.
+- Backend endpoints for PayPal create-order and capture-order flows before accepting public checkout payments.
 - Required environment variables from `.env.example` when integrations are added.
 - Database migration or rules deployment process, if applicable.
 - Monitoring, rollback, and incident response notes.

@@ -27,11 +27,15 @@ MVP
 - Add email notification placeholder.
 - Add export to PDF.
 - Add "Request Lead.AI Implementation" button and submission flow.
+- Connect the main `www.lead-ai.us` website CTA to the audit workflow.
+- Add PayPal Checkout planning for strategy calls and package deposits.
+- Prepare `audit.lead-ai.us` as the branded production URL after DNS access is available.
 
 ## Phase 3: Trust And Integrations
 
 - Add authentication or protected access where needed.
 - Add integration placeholders or provider adapters.
+- Add PayPal create-order and capture-order backend endpoints before live checkout.
 - Add monitoring, logging, error handling, and abuse controls.
 - Improve responsible AI notes, human review paths, and explainability.
 

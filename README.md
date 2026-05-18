@@ -12,6 +12,10 @@ This repository now includes a runnable client-side React MVP. It is suitable fo
 
 Public deployment: https://lead-ai-business-audit.vercel.app
 
+Main business website: https://www.lead-ai.us
+
+Preferred branded audit URL after DNS setup: `https://audit.lead-ai.us`
+
 Deployment notes:
 
 - The Vercel production deployment is live.
@@ -101,7 +105,27 @@ The current MVP demo runs without required environment variables. Future backend
 3. The user receives a prioritized 30-day automation roadmap.
 4. The report presents a clear next step or consultation CTA.
 
+Business funnel:
+
+```text
+www.lead-ai.us -> Start Free AI Audit -> Audit report -> Consultation or package request
+```
+
 See [User Flow](docs/USER_FLOW.md) for more detail.
+
+## Business Funnel
+
+Lead.AI Business Audit is designed to work as a customer acquisition tool for the main Lead.AI website.
+
+Recommended offer ladder:
+
+- Free AI Business Audit: `$0`
+- Paid strategy call: `$99`
+- AI Automation Starter Setup: `$299-$499`
+- Growth Automation System: `$799-$1,500`
+- Monthly AI Support Plan: `$199-$499/month`
+
+PayPal Checkout, report storage, email delivery, and package payment flow are planned for the next product milestone. See [Business Funnel](docs/BUSINESS_FUNNEL.md).
 
 ## Scoring Model
 
@@ -163,6 +187,8 @@ Immediate next step: add backend persistence, report export storage, and a share
 - Add email notification placeholder.
 - Add export to PDF.
 - Add "Request Lead.AI Implementation" submission flow.
+- Add PayPal Checkout flow for strategy calls, deposits, and starter packages.
+- Replace the temporary Vercel URL with `https://audit.lead-ai.us` after DNS and Vercel domain setup.
 
 ## Security Notes
 
