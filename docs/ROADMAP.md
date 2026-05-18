@@ -2,23 +2,32 @@
 
 ## Status
 
-Planned
+MVP
 
-## Phase 1: Foundation
+## Phase 1: Product Foundation
 
-- Define audit categories and scoring model.
-- Design structured intake schema.
-- Select framework, storage, and AI workflow approach.
+- Confirm target user and first use case.
+- Define data model, environment variables, and security boundaries.
+- Create the first UI or API skeleton.
+- Add test strategy and deployment assumptions.
 
-## Phase 2: MVP
+## Phase 2: MVP Demo
 
-- Build intake form.
-- Generate structured automation opportunity report.
-- Add exportable summary.
-- Add privacy and data retention notes.
+- Implement the core workflow: Build the intake form, scoring rubric, and report-ready audit output first.
+- Add realistic sample data and public-safe examples.
+- Add screenshots or a short demo video.
+- Validate the workflow with at least one business scenario.
 
-## Phase 3: Product Expansion
+## Phase 3: Trust And Integrations
 
-- Add industry-specific audit templates.
-- Add implementation roadmap scoring.
-- Add saved audits and comparison history.
+- Add authentication or protected access where needed.
+- Add integration placeholders or provider adapters.
+- Add monitoring, logging, error handling, and abuse controls.
+- Improve responsible AI notes, human review paths, and explainability.
+
+## Phase 4: Product Readiness
+
+- Add automated tests and setup verification.
+- Finalize deployment documentation.
+- Review security and privacy posture.
+- Decide whether status should move to Demo Ready, In Development, or Production Ready.
