@@ -6,10 +6,13 @@ import {
   CheckCircle2,
   ClipboardList,
   Download,
+  FileText,
   Gauge,
+  Info,
   MessageSquareText,
   ShieldCheck,
   Sparkles,
+  Target,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -47,6 +50,8 @@ type AuditResult = {
   summary: string;
   strengths: string[];
   gaps: string[];
+  topPriorities: string[];
+  implementationNotes: string[];
   roadmap: Array<{
     week: string;
     title: string;
@@ -182,6 +187,24 @@ function calculateAudit(input: Intake): AuditResult {
       : "CRM data should be enriched with AI summaries and priority signals.",
   ];
 
+  const topPriorities = [
+    input.priorityArea === "lead-response"
+      ? "Respond to new leads faster with a guided AI-assisted intake workflow."
+      : "Connect the priority workflow to lead capture and follow-up.",
+    input.bookingProcess === "manual"
+      ? "Reduce manual scheduling by adding booking intent detection and a calendar path."
+      : "Use booking behavior as a signal for lead urgency.",
+    input.leadTracking !== "crm"
+      ? "Move lead details into a structured tracker before adding advanced automation."
+      : "Add AI summaries and next-action fields to CRM records.",
+  ];
+
+  const implementationNotes = [
+    "This MVP uses deterministic scoring rules, not an AI model. The scores are a planning aid, not a final operational decision.",
+    "Start with one automation pilot, measure lead response and booked appointments, then expand into chatbot or WhatsApp workflows.",
+    "Keep human review for urgent, sensitive, or high-value customer conversations.",
+  ];
+
   const roadmap = [
     {
       week: "Days 1-7",
@@ -231,9 +254,34 @@ function calculateAudit(input: Intake): AuditResult {
     summary: `${input.businessName || "This business"} is ready for a focused ${packageName.toLowerCase()} pilot. The strongest near-term value is reducing manual follow-up while creating cleaner lead records and a repeatable 30-day automation plan.`,
     strengths,
     gaps,
+    topPriorities,
+    implementationNotes,
     roadmap,
   };
 }
+
+function getScoreBand(score: number) {
+  if (score >= 80) {
+    return { label: "Strong Automation Fit", tone: "strong" };
+  }
+
+  if (score >= 60) {
+    return { label: "Good Opportunity", tone: "good" };
+  }
+
+  if (score >= 40) {
+    return { label: "Needs Improvement", tone: "needs-work" };
+  }
+
+  return { label: "High Risk / Low Automation Readiness", tone: "risk" };
+}
+
+const scoringNotes = [
+  "Automation readiness blends tool maturity, lead volume, lead tracking, and booking process.",
+  "Lead response combines response speed and support coverage.",
+  "Customer intelligence reflects whether lead details are organized enough for follow-up.",
+  "Workflow risk is higher when response, tracking, and booking processes are mostly manual.",
+];
 
 function ScoreCard({
   label,
@@ -244,6 +292,8 @@ function ScoreCard({
   score: number;
   icon: typeof Gauge;
 }) {
+  const band = getScoreBand(score);
+
   return (
     <section className="score-card" aria-label={`${label} score`}>
       <div className="score-card__top">
@@ -251,6 +301,7 @@ function ScoreCard({
         <span>{label}</span>
       </div>
       <div className="score-card__value">{score}</div>
+      <span className={`score-band score-band--${band.tone}`}>{band.label}</span>
       <div className="meter" aria-hidden="true">
         <span style={{ width: `${score}%` }} />
       </div>
@@ -261,6 +312,16 @@ function ScoreCard({
 function App() {
   const [intake, setIntake] = useState<Intake>(defaultIntake);
   const result = useMemo(() => calculateAudit(intake), [intake]);
+  const generatedDate = useMemo(
+    () =>
+      new Intl.DateTimeFormat("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      }).format(new Date()),
+    []
+  );
+  const overallBand = getScoreBand(result.overall);
 
   const update = <K extends keyof Intake>(key: K, value: Intake[K]) => {
     setIntake((current) => ({ ...current, [key]: value }));
@@ -272,25 +333,50 @@ function App() {
 
   return (
     <main className="app-shell">
-      <header className="topbar">
-        <div>
+      <header className="hero">
+        <nav className="topbar" aria-label="Lead.AI Business Audit">
           <div className="brand-mark">
             <Sparkles aria-hidden="true" size={18} />
             <span>Lead.AI Business Audit</span>
           </div>
-          <h1>Automation readiness and 30-day roadmap generator</h1>
-        </div>
-        <div className="topbar__actions">
-          <span className="status-pill">MVP demo</span>
-          <button className="icon-button" type="button" onClick={exportReport} title="Print or save report">
-            <Download aria-hidden="true" size={18} />
-            <span>Report</span>
-          </button>
-        </div>
+          <div className="topbar__actions">
+            <span className="status-pill">MVP assessment model</span>
+            <button className="icon-button" type="button" onClick={exportReport} title="Print or save report">
+              <Download aria-hidden="true" size={18} />
+              <span>Report</span>
+            </button>
+          </div>
+        </nav>
+
+        <section className="hero__content">
+          <div>
+            <p className="eyebrow">Client lead magnet for small business automation</p>
+            <h1>Generate an AI automation audit in minutes.</h1>
+            <p>
+              Score lead response, workflow gaps, customer intelligence, and automation readiness,
+              then turn the result into a practical 30-day implementation roadmap.
+            </p>
+            <div className="hero__actions">
+              <a className="primary-button" href="#business-intake">
+                <ClipboardList aria-hidden="true" size={18} />
+                <span>Generate My AI Automation Audit</span>
+              </a>
+              <button className="icon-button icon-button--light" type="button" onClick={exportReport}>
+                <FileText aria-hidden="true" size={18} />
+                <span>Print Report</span>
+              </button>
+            </div>
+          </div>
+          <aside className="hero-card" aria-label="Audit model summary">
+            <span>0-100</span>
+            <strong>Readiness score</strong>
+            <p>Deterministic MVP scoring with transparent business factors.</p>
+          </aside>
+        </section>
       </header>
 
       <section className="workspace">
-        <form className="intake-panel" aria-label="Business audit intake">
+        <form className="intake-panel" id="business-intake" aria-label="Business audit intake">
           <div className="section-heading">
             <ClipboardList aria-hidden="true" size={20} />
             <div>
@@ -418,12 +504,48 @@ function App() {
               <p className="eyebrow">{intake.businessType || "Business audit"}</p>
               <h2>{intake.businessName || "Business"} audit report</h2>
               <p>{result.summary}</p>
+              <dl className="report-meta">
+                <div>
+                  <dt>Date generated</dt>
+                  <dd>{generatedDate}</dd>
+                </div>
+                <div>
+                  <dt>Assessment model</dt>
+                  <dd>Deterministic MVP</dd>
+                </div>
+                <div>
+                  <dt>Recommended package</dt>
+                  <dd>{result.packageName}</dd>
+                </div>
+              </dl>
             </div>
             <div className="overall-score">
               <span>{result.overall}</span>
               <small>overall score</small>
+              <em>{overallBand.label}</em>
             </div>
           </div>
+
+          <section className="score-explainer">
+            <div className="section-heading">
+              <Info aria-hidden="true" size={20} />
+              <div>
+                <h3>Scoring model transparency</h3>
+                <p>This MVP uses deterministic business rules, not AI-generated scoring.</p>
+              </div>
+            </div>
+            <div className="band-grid" aria-label="Score bands">
+              <span>0-39 High Risk</span>
+              <span>40-59 Needs Improvement</span>
+              <span>60-79 Good Opportunity</span>
+              <span>80-100 Strong Fit</span>
+            </div>
+            <ul className="compact-list">
+              {scoringNotes.map((note) => (
+                <li key={note}>{note}</li>
+              ))}
+            </ul>
+          </section>
 
           <div className="score-grid">
             <ScoreCard label="Automation readiness" score={result.automationReadiness} icon={Bot} />
@@ -445,6 +567,21 @@ function App() {
               <span>Plan consultation</span>
               <ArrowRight aria-hidden="true" size={18} />
             </button>
+          </section>
+
+          <section className="priority-panel">
+            <div className="section-heading">
+              <Target aria-hidden="true" size={20} />
+              <div>
+                <h3>Top 3 automation priorities</h3>
+                <p>Use these as the first implementation scope.</p>
+              </div>
+            </div>
+            <ol>
+              {result.topPriorities.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ol>
           </section>
 
           <div className="insight-grid">
@@ -487,6 +624,32 @@ function App() {
                 </article>
               ))}
             </div>
+          </section>
+
+          <section className="implementation-notes">
+            <div className="section-heading">
+              <ShieldCheck aria-hidden="true" size={20} />
+              <div>
+                <h3>Implementation notes</h3>
+                <p>Responsible AI and client delivery guidance.</p>
+              </div>
+            </div>
+            <ul>
+              {result.implementationNotes.map((note) => (
+                <li key={note}>{note}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="final-cta">
+            <div>
+              <h3>Ready to turn this audit into implementation?</h3>
+              <p>Use the report as the starting point for a Lead.AI chatbot, WhatsApp agent, or lead scoring workflow.</p>
+            </div>
+            <a className="primary-button" href="mailto:arun_w@proton.me?subject=Lead.AI%20Business%20Audit%20Implementation%20Request">
+              <CalendarClock aria-hidden="true" size={18} />
+              <span>Request Implementation Help</span>
+            </a>
           </section>
         </section>
       </section>
