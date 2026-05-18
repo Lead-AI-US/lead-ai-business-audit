@@ -4,7 +4,7 @@
 
 MVP
 
-This document describes the intended architecture. It must be updated when implementation files are added.
+This document describes the current MVP architecture and the intended backend expansion path.
 
 ## System Context
 
@@ -12,15 +12,14 @@ Lead.AI Business Audit supports this product role: AI-powered business automatio
 
 Business problem: Small businesses do not know what to automate first or how much AI automation they need.
 
-## Core Layers
+## Current MVP Architecture
 
-- **Experience layer:** user-facing screens, widgets, reports, dashboards, or documentation flows.
-- **API/workflow layer:** input validation, business rules, routing, integrations, and orchestration.
-- **AI layer:** prompts, scoring, summaries, explanations, recommendations, or decision support.
-- **Data layer:** product records, configuration, outputs, audit records, and analytics events.
-- **Security layer:** authentication, authorization, secret management, privacy, logging, and abuse controls.
+- **Experience layer:** `src/App.tsx` renders the intake form, live scorecards, recommendation block, strengths/gaps, and 30-day roadmap.
+- **Scoring layer:** deterministic client-side scoring in `calculateAudit` turns safe intake data into readiness, lead response, workflow risk, customer intelligence, and overall scores.
+- **Presentation layer:** `src/styles.css` provides the responsive dashboard/report layout and print-friendly report output.
+- **Build layer:** Vite, React, and TypeScript provide the local demo and production build.
 
-## Planned Components
+## Implemented Components
 
 - Business intake form
 - Automation readiness score
@@ -28,12 +27,21 @@ Business problem: Small businesses do not know what to automate first or how muc
 - Workflow gap analysis
 - Recommended automation package
 - 30-day roadmap
-- PDF/report-ready output
+- Print/save report output
 - Lead capture CTA
+
+## Planned Backend Components
+
+- API endpoint for audit creation and report retrieval.
+- Database table or collection for saved audits and lead capture records.
+- Optional AI recommendation layer for richer report language.
+- PDF/report storage and email delivery.
+- Authentication for private client reports.
 
 ## Data And Integration Notes
 
-- Store only the data required for the workflow.
+- The current MVP does not persist data or call external APIs.
+- Store only the data required for the workflow when persistence is added.
 - Keep provider-specific code behind clear adapters.
 - Document data retention and deletion expectations before production use.
 - Avoid storing private customer data in logs or public examples.

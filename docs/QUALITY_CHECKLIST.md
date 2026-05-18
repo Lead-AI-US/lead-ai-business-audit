@@ -14,7 +14,13 @@
 - [ ] Inputs are validated.
 - [ ] Errors are handled clearly.
 - [ ] Tests cover core workflow logic.
-- [ ] Setup works from a clean checkout.
+- [x] Setup works from a clean checkout.
+
+## Current Verification
+
+- [x] `npm install`
+- [x] `npm run lint`
+- [x] `npm run build`
 
 ## Security Quality
 

@@ -13,8 +13,8 @@ MVP
 
 ## Phase 2: MVP Demo
 
-- Implement the core workflow: Build the intake form, scoring rubric, and report-ready audit output first.
-- Add realistic sample data and public-safe examples.
+- Implement the core workflow: Build the intake form, scoring rubric, and report-ready audit output first. Completed.
+- Add realistic sample data and public-safe examples. Completed.
 - Add screenshots or a short demo video.
 - Validate the workflow with at least one business scenario.
 

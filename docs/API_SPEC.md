@@ -4,7 +4,7 @@
 
 MVP
 
-This API spec is a planning document. Endpoints should be treated as proposed until code and tests are added.
+This API spec is a planning document. The current MVP runs client-side without a backend API. Endpoints should be treated as proposed until server code and tests are added.
 
 ## API Principles
 
@@ -42,3 +42,7 @@ This API spec is a planning document. Endpoints should be treated as proposed un
 - Keep API keys and provider credentials server-side.
 - Rate limit public or webhook-facing endpoints.
 - Document data retention and logging behavior before production use.
+
+## Current Local Demo
+
+The current React demo calculates audit results in the browser and does not send data to any server.

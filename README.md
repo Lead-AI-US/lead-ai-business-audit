@@ -4,9 +4,9 @@ A lead magnet and advisory tool that turns business pain points into an automati
 
 ## Product Status
 
-MVP
+MVP demo
 
-This repository is public and suitable for product planning, documentation review, and future implementation. It should not be described as production-ready until working code, tests, deployment steps, and security controls are in place.
+This repository now includes a runnable client-side React MVP. It is suitable for public demo, product validation, and continued implementation. It should not be described as production-ready until backend persistence, authentication, tests, deployment hardening, and security controls are added.
 
 ## Problem Solved
 
@@ -28,15 +28,17 @@ Small businesses do not know what to automate first or how much AI automation th
 - Workflow gap analysis
 - Recommended automation package
 - 30-day roadmap
-- PDF/report-ready output
+- Print/save report output
 - Lead capture CTA
 
 ## Tech Stack
 
-- React or Next.js
-- FastAPI or serverless backend
-- OpenAI-ready logic
-- PDF/report generation
+- React
+- TypeScript
+- Vite
+- Lucide React icons
+- Deterministic client-side scoring logic
+- FastAPI or serverless backend planned for future persistence and AI workflows
 
 ## Architecture Overview
 
@@ -54,21 +56,31 @@ See [Architecture](docs/ARCHITECTURE.md) for the detailed design direction.
 
 ## Setup Instructions
 
-There is no complete runnable application in this repository yet unless implementation files have been added after this documentation pass.
-
-Recommended future setup pattern:
+Install dependencies and start the local development server:
 
 ```bash
-cp .env.example .env
-# install project dependencies after the stack is implemented
-# run the local development server after package scripts are added
+npm install
+npm run dev
 ```
 
-When code is added, update this section with exact install, development, test, lint, and build commands.
+Run quality checks:
+
+```bash
+npm run lint
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
 
 ## Environment Variables
 
 Configuration is documented in [.env.example](.env.example). Use placeholder names only in public files. Never commit real `.env` files, API keys, access tokens, private credentials, customer exports, or private datasets.
+
+The current MVP demo runs without required environment variables. Future backend, report storage, email, and AI provider integrations should use `.env.example` as the source of truth.
 
 ## Usage Flow
 
@@ -81,7 +93,7 @@ See [User Flow](docs/USER_FLOW.md) for more detail.
 
 ## Screenshots And Demo
 
-Screenshots, demo links, and videos will be added after a working demo exists.
+The current demo runs locally with `npm run dev`.
 
 Suggested public assets:
 
@@ -94,7 +106,7 @@ Suggested public assets:
 
 See [Roadmap](docs/ROADMAP.md) and [MVP Plan](docs/MVP_PLAN.md).
 
-Immediate next step: Build the intake form, scoring rubric, and report-ready audit output first.
+Immediate next step: add backend persistence, report export storage, and a shareable client-facing demo link.
 
 ## Security Notes
 

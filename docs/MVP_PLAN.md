@@ -4,6 +4,18 @@
 
 Ship the smallest credible demo for Lead.AI Business Audit.
 
+## Current MVP Status
+
+Implemented:
+
+- React/Vite client-side demo.
+- Business intake form with safe sample data.
+- Deterministic scoring rubric.
+- Recommended automation package.
+- Strengths and workflow gap analysis.
+- 30-day roadmap output.
+- Print/save report action.
+
 ## MVP Features
 
 - Business intake form
@@ -28,3 +40,11 @@ Ship the smallest credible demo for Lead.AI Business Audit.
 - No secrets are committed.
 - Security and responsible AI checklists are complete.
 - The next development milestone is clear.
+
+## Next MVP Milestones
+
+1. Add a persistent backend for saved audit reports.
+2. Add a shareable report URL.
+3. Add screenshot and demo video assets.
+4. Add form validation tests and scoring logic tests.
+5. Add an optional PDF generation path.

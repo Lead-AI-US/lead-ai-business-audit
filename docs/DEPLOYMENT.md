@@ -4,14 +4,23 @@
 
 MVP
 
-There may not be a deployable application yet. Do not publish fake deployment claims.
+The current MVP is a static Vite React application. It can be deployed to static hosting after running a production build, but no production backend is included yet.
+
+## Local Build
+
+```bash
+npm install
+npm run lint
+npm run build
+```
+
+The build output is generated in `dist/`.
 
 ## Future Deployment Requirements
 
-- Runtime and package manager versions.
-- Exact install, development, test, build, and start commands.
-- Required environment variables from `.env.example`.
-- Hosting platform configuration.
+- Static hosting configuration for the Vite build.
+- Backend hosting for saved reports, lead capture, and AI workflows.
+- Required environment variables from `.env.example` when integrations are added.
 - Database migration or rules deployment process, if applicable.
 - Monitoring, rollback, and incident response notes.
 
