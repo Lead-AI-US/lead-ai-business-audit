@@ -42,6 +42,7 @@ import {
   updateAuditReportStatus,
 } from "./auditStorage";
 import { signInAdmin, signOutAdmin, subscribeToAdminAuth } from "./auditAuth";
+import { recordSessionSubmission, sessionSubmissionsRemaining } from "./abuseGuard";
 import type {
   AuditReport,
   AuditStatus,
@@ -308,6 +309,7 @@ function ReportSummary({ report, showPrivate }: { report: AuditReport; showPriva
 function App() {
   const [path, setPath] = useState(window.location.pathname);
   const [intake, setIntake] = useState<Intake>(defaultIntake);
+  const [honeypot, setHoneypot] = useState("");
   const [errors, setErrors] = useState<Partial<Record<keyof Intake, string>>>({});
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [saveMessage, setSaveMessage] = useState("");
@@ -406,6 +408,25 @@ function App() {
 
   const submitAudit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // Honeypot: a real visitor never fills this (off-screen, unlabeled,
+    // excluded from tab order). Treat it the same as a normal validation
+    // failure rather than a fake success, so this reveals nothing to the
+    // script that triggered it.
+    if (honeypot.trim()) {
+      setSaveState("error");
+      setSaveMessage("Please fix the highlighted fields before saving the report.");
+      return;
+    }
+
+    if (sessionSubmissionsRemaining() <= 0) {
+      setSaveState("error");
+      setSaveMessage(
+        "You've reached the submission limit for this browser session. Email arun_w@proton.me if you need to submit another audit."
+      );
+      return;
+    }
+
     const nextErrors = validateIntake(intake);
     setErrors(nextErrors);
 
@@ -424,6 +445,7 @@ function App() {
     try {
       setSaveState("saving");
       const saved = await saveAuditReport(nextReport);
+      recordSessionSubmission();
       setReport(saved.report);
       setSaveState("saved");
       setSaveMessage(
@@ -761,6 +783,21 @@ function App() {
               <p>Capture the lead, score the report, and save the submission.</p>
             </div>
           </div>
+
+          {/* Honeypot: visually hidden, out of tab order. No aria-hidden here —
+              an aria-hidden element must never contain a focusable descendant
+              (axe-core aria-hidden-focus), so this stays in the a11y tree. */}
+          <label style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>
+            Leave this field blank
+            <input
+              type="text"
+              name="company_website_confirm"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(event) => setHoneypot(event.target.value)}
+            />
+          </label>
 
           <div className="field-grid">
             <label>
