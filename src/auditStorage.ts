@@ -1,4 +1,5 @@
 import { initializeApp, getApps } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import {
   collection,
   doc,
@@ -16,7 +17,7 @@ import { calculateAudit } from "./auditModel";
 const COLLECTION_NAME = "auditReports";
 const LOCAL_STORAGE_KEY = "lead_ai_audit_reports_v2";
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
@@ -55,7 +56,12 @@ function writeLocalReports(reports: AuditReport[]) {
 export function generateReportId() {
   const now = new Date();
   const datePart = now.toISOString().slice(0, 10).replaceAll("-", "");
-  const randomPart = Math.random().toString(36).slice(2, 7).toUpperCase();
+  const randomBytes = new Uint8Array(10);
+  crypto.getRandomValues(randomBytes);
+  const randomPart = Array.from(randomBytes, (byte) => byte.toString(36).padStart(2, "0"))
+    .join("")
+    .slice(0, 16)
+    .toUpperCase();
   return `LA-${datePart}-${randomPart}`;
 }
 
@@ -122,10 +128,18 @@ export async function getAuditReport(reportId: string) {
   return readLocalReports().find((report) => report.reportId === reportId) ?? null;
 }
 
+function requireAdminSession() {
+  const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+  if (!getAuth(app).currentUser) {
+    throw new Error("Sign in as an admin to view or update submitted audits.");
+  }
+}
+
 export async function listAuditReports() {
   const db = getDb();
 
   if (db) {
+    requireAdminSession();
     const snapshot = await getDocs(query(collection(db, COLLECTION_NAME), orderBy("createdAt", "desc")));
     return snapshot.docs.map((item) => item.data() as AuditReport);
   }
@@ -137,6 +151,7 @@ export async function updateAuditReportStatus(reportId: string, status: AuditSta
   const db = getDb();
 
   if (db) {
+    requireAdminSession();
     await updateDoc(doc(db, COLLECTION_NAME, reportId), { status });
     return;
   }

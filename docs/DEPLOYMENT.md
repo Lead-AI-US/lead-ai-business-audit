@@ -132,10 +132,9 @@ firebase deploy
 
 - Static hosting configuration for the Vite build.
 - Vercel environment variables for Firestore report storage.
-- Authentication and Firestore rules before production customer data collection.
+- Deploy `firestore.rules` and create the real Firebase Auth admin account (code and rules are committed; deployment/account creation is not — no Firebase project console access from this environment) before production customer data collection.
 - Backend endpoints for PayPal create-order and capture-order flows before accepting public checkout payments.
 - Required environment variables from `.env.example` when integrations are added.
-- Database migration or rules deployment process, if applicable.
 - Monitoring, rollback, and incident response notes.
 
 ## Firestore Environment Variables
@@ -161,7 +160,10 @@ Admin route:
 /admin/audits
 ```
 
-Add authentication and restrictive Firestore rules before using the admin route with real customer data.
+`/admin/audits` now requires a signed-in Firebase Auth admin session whenever the `VITE_FIREBASE_*` vars above are set (see `src/auditAuth.ts`, `src/App.tsx`). Before setting those vars in Vercel for real customer data, complete both remaining steps — the app-side sign-in gate alone does not stop direct Firestore SDK/API access:
+
+1. Deploy `firestore.rules` (committed in this repo): `firebase deploy --only firestore:rules`. Edit the placeholder admin email in `firestore.rules` (`isAdmin()`) to the real operator email(s) first.
+2. In Firebase Console -> Authentication, enable Email/Password sign-in and create the matching admin user account(s). There is no self-serve admin signup.
 
 ## Environment Strategy
 
@@ -173,7 +175,7 @@ Add authentication and restrictive Firestore rules before using the admin route 
 
 - [x] No secrets or `.env` files committed.
 - [x] Setup commands verified from a clean checkout.
-- [ ] Authentication and authorization added for admin/customer data.
+- [x] Authentication and authorization added for admin/customer data (code + `firestore.rules` committed). **Not yet deployed**: rules must be pushed with `firebase deploy --only firestore:rules` and the real admin account created in Firebase Console before `VITE_FIREBASE_*` is set on the live Vercel project.
 - [x] Current MVP avoids console logging submitted customer data.
 - [x] Responsible AI limitations visible where relevant.
 - [x] README and docs updated with the current deployment flow.

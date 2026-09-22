@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import type { User } from "firebase/auth";
 import {
   automationNeedOptions,
   bookingOptions,
@@ -40,6 +41,7 @@ import {
   saveAuditReport,
   updateAuditReportStatus,
 } from "./auditStorage";
+import { signInAdmin, signOutAdmin, subscribeToAdminAuth } from "./auditAuth";
 import type {
   AuditReport,
   AuditStatus,
@@ -320,6 +322,12 @@ function App() {
     budget: "all",
     minimumScore: "",
   });
+  const [adminUser, setAdminUser] = useState<User | null>(null);
+  const [signInEmail, setSignInEmail] = useState("");
+  const [signInPassword, setSignInPassword] = useState("");
+  const [signInError, setSignInError] = useState("");
+  const [signingIn, setSigningIn] = useState(false);
+  const adminAuthorized = !isFirestoreConfigured || Boolean(adminUser);
 
   const route = useMemo(() => parseRoute(path), [path]);
   const result = useMemo(() => calculateAudit(intake), [intake]);
@@ -343,8 +351,10 @@ function App() {
       .finally(() => setLoadingReport(false));
   }, [route]);
 
+  useEffect(() => subscribeToAdminAuth(setAdminUser), []);
+
   useEffect(() => {
-    if (route.type !== "admin") {
+    if (route.type !== "admin" || !adminAuthorized) {
       return;
     }
 
@@ -353,7 +363,21 @@ function App() {
     listAuditReports()
       .then(setReports)
       .finally(() => setAdminLoading(false));
-  }, [route]);
+  }, [route, adminAuthorized]);
+
+  const handleAdminSignIn = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSigningIn(true);
+    setSignInError("");
+    try {
+      await signInAdmin(signInEmail, signInPassword);
+      setSignInPassword("");
+    } catch {
+      setSignInError("Sign-in failed. Check the admin email and password.");
+    } finally {
+      setSigningIn(false);
+    }
+  };
 
   const navigate = (nextPath: string) => {
     window.history.pushState({}, "", nextPath);
@@ -506,6 +530,50 @@ function App() {
     );
   }
 
+  if (route.type === "admin" && !adminAuthorized) {
+    return (
+      <main className="app-shell">
+        <header className="hero hero--compact">{renderTopbar()}</header>
+        <section className="admin-shell">
+          <div className="section-heading admin-heading">
+            <Database aria-hidden="true" size={22} />
+            <div>
+              <h1>Admin sign-in required</h1>
+              <p>Submitted audits contain customer names, emails, and phone numbers. Sign in with an authorized Lead.AI admin account to view them.</p>
+            </div>
+          </div>
+          <form className="intake-panel" style={{ maxWidth: "26rem" }} onSubmit={handleAdminSignIn}>
+            <label>
+              Admin email
+              <input
+                type="email"
+                required
+                autoComplete="username"
+                value={signInEmail}
+                onChange={(event) => setSignInEmail(event.target.value)}
+              />
+            </label>
+            <label>
+              Password
+              <input
+                type="password"
+                required
+                autoComplete="current-password"
+                value={signInPassword}
+                onChange={(event) => setSignInPassword(event.target.value)}
+              />
+            </label>
+            {signInError && <p className="form-message form-message--error">{signInError}</p>}
+            <button className="primary-button form-submit" type="submit" disabled={signingIn}>
+              {signingIn ? <Loader2 className="spin" aria-hidden="true" size={18} /> : <ShieldCheck aria-hidden="true" size={18} />}
+              <span>{signingIn ? "Signing in..." : "Sign in"}</span>
+            </button>
+          </form>
+        </section>
+      </main>
+    );
+  }
+
   if (route.type === "admin") {
     return (
       <main className="app-shell">
@@ -516,10 +584,22 @@ function App() {
             <div>
               <h1>Submitted audits</h1>
               <p>
-                Demo admin workflow for v0.2. Protect this route with authentication and
-                Firestore rules before production use.
+                {isFirestoreConfigured
+                  ? "Signed in as an authorized admin. Firestore access rules independently enforce this boundary."
+                  : "Local demo storage: this view only shows audits saved in this browser, not a shared production database."}
               </p>
             </div>
+            {isFirestoreConfigured && adminUser && (
+              <button
+                className="icon-button"
+                type="button"
+                onClick={() => {
+                  void signOutAdmin();
+                }}
+              >
+                <span>Sign out ({adminUser.email})</span>
+              </button>
+            )}
           </div>
 
           <div className="admin-filters">

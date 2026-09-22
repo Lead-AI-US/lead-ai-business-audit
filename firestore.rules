@@ -1,0 +1,56 @@
+rules_version = '2';
+
+// Deploy with: firebase deploy --only firestore:rules
+// Before deploying, replace ADMIN_EMAILS below with the real Lead.AI operator
+// email(s) that should be able to sign in and view submitted audits. Those
+// emails must exist as Firebase Authentication users (Console > Authentication
+// > Add user) with email/password sign-in enabled. Anyone not in this list,
+// and anyone unauthenticated, is denied list/update/delete access at the
+// database layer regardless of what the client app does.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null &&
+        request.auth.token.email in [
+          'admin@lead-ai.us'
+        ];
+    }
+
+    function isValidNewReport() {
+      let data = request.resource.data;
+      return data.reportId == reportId
+        && data.status == 'new'
+        && data.owner.name is string && data.owner.name.size() < 200
+        && data.owner.email is string && data.owner.email.size() < 200
+        && data.owner.phone is string && data.owner.phone.size() < 50
+        && data.business.name is string && data.business.name.size() < 200
+        && data.auditInput.majorProblem is string && data.auditInput.majorProblem.size() < 2000
+        && data.auditInput.currentTools is string && data.auditInput.currentTools.size() < 2000;
+    }
+
+    match /auditReports/{reportId} {
+      // Public intake form creates its own report; cannot overwrite an existing one.
+      allow create: if isValidNewReport() && !exists(/databases/$(database)/documents/auditReports/$(reportId));
+
+      // Report links are shared directly with the business owner (unguessable
+      // reportId), so a single-document read stays public by design.
+      allow get: if true;
+
+      // Listing every report is what exposes cross-customer PII, so this is
+      // admin-only.
+      allow list: if isAdmin();
+
+      // Admin can only change status, not rewrite customer-submitted data.
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && request.resource.data.status in
+          ['new', 'reviewed', 'contacted', 'proposal_sent', 'converted', 'not_ready', 'closed'];
+
+      allow delete: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
